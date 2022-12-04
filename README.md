@@ -17,7 +17,7 @@ SPI Demonstration using ATmega328P
 
 ### 02. Methodology
 
-![image_1]()
+![image_1](https://github.com/micro9997/SPI_Demonstration/blob/master/images/image_1.jpeg)
 
 &nbsp;
 
