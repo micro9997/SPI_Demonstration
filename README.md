@@ -21,10 +21,79 @@ SPI Demonstration using ATmega328P
 
 &nbsp;
 
+**Register Description**
+* *SPCR – SPI Control Register*
+    * *Bit 7 – SPIE: SPI Interrupt Enable*
+    * *Bit 6 – SPE: SPI Enable*
+    * *Bit 5 – DORD: Data Order*
+    * *Bit 4 – MSTR: Master/Slave Select*
+    * *Bit 3 – CPOL: Clock Polarity*
+    * *Bit 2 – CPHA: Clock Phase*
+    * *Bits 1, 0 – SPR1, SPR0: SPI Clock Rate Select 1 and 0*
+* *SPSR – SPI Status Register*
+    * *Bit 7 – SPIF: SPI Interrupt Flag*
+    * *Bit 6 – WCOL: Write COLlision Flag*
+    * *Bit [5:1] – Reserved*
+    * *Bit 0 – SPI2X: Double SPI Speed Bit*
+* *SPDR – SPI Data Register*
+
+&nbsp;
+
+*Pin initialization*
+```C
+// for Master
+// Set MOSI and SCK output, all others input
+DDR_SPI = (1 << DD_MOSI) | (1 << DD_SCK);
+
+// for Slave
+// Set MISO output, all others input
+DDR_SPI = (1 << DD_MISO);
+```
+
+&nbsp;
+
+*Peripheral enable*
+```C
+// for Master
+// Enable SPI, Master, set clock rate fck/16
+SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+
+// for Slave
+// Enable SPI
+SPCR = (1 << SPE);
+```
+
+&nbsp;
+
+*Handle data*
+```C
+// for Master
+// Start transmission
+SPDR = cData;
+// Wait for transmission complete
+while(!(SPSR & (1 << SPIF)));
+
+// for Slave
+// Wait for reception complete
+while(!(SPSR & (1 << SPIF)));
+// Return Data Register
+return SPDR;
+```
+
+&nbsp;
+
 ### 03. Evaluation and Result
 
 &nbsp;
 
 ### 04. Conclusion
+
+Advantages
+* Need to write . .
+* 
+
+Disadvantages
+* Need to write . .
+* 
 
 &nbsp;
