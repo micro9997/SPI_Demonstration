@@ -22,6 +22,7 @@ SPI Demonstration using ATmega328P
 &nbsp;
 
 **Register Description**
+
 * *SPCR – SPI Control Register*
     * *Bit 7 – SPIE: SPI Interrupt Enable*
     * *Bit 6 – SPE: SPI Enable*
@@ -30,11 +31,13 @@ SPI Demonstration using ATmega328P
     * *Bit 3 – CPOL: Clock Polarity*
     * *Bit 2 – CPHA: Clock Phase*
     * *Bits 1, 0 – SPR1, SPR0: SPI Clock Rate Select 1 and 0*
+
 * *SPSR – SPI Status Register*
     * *Bit 7 – SPIF: SPI Interrupt Flag*
     * *Bit 6 – WCOL: Write COLlision Flag*
     * *Bit [5:1] – Reserved*
     * *Bit 0 – SPI2X: Double SPI Speed Bit*
+
 * *SPDR – SPI Data Register*
 
 &nbsp;
