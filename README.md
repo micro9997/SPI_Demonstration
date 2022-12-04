@@ -45,10 +45,14 @@ SPI Demonstration using ATmega328P
 *Pin initialization*
 ```C
 // for Master
+
 // Set MOSI and SCK output, all others input
 DDR_SPI = (1 << DD_MOSI) | (1 << DD_SCK);
+```
 
+```C
 // for Slave
+
 // Set MISO output, all others input
 DDR_SPI = (1 << DD_MISO);
 ```
@@ -58,10 +62,14 @@ DDR_SPI = (1 << DD_MISO);
 *Peripheral enable*
 ```C
 // for Master
+
 // Enable SPI, Master, set clock rate fck/16
 SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+```
 
+```C
 // for Slave
+
 // Enable SPI
 SPCR = (1 << SPE);
 ```
@@ -71,12 +79,16 @@ SPCR = (1 << SPE);
 *Handle data*
 ```C
 // for Master
+
 // Start transmission
 SPDR = cData;
 // Wait for transmission complete
 while(!(SPSR & (1 << SPIF)));
+```
 
+```C
 // for Slave
+
 // Wait for reception complete
 while(!(SPSR & (1 << SPIF)));
 // Return Data Register
