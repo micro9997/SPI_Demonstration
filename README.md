@@ -1,3 +1,4 @@
+
 # SPI_Demonstration
 SPI Demonstration using ATmega328P
 
@@ -7,9 +8,9 @@ SPI Demonstration using ATmega328P
 *The Serial Peripheral Interface (SPI) allows high-speed synchronous data transfer between the ATmega328P and peripheral devices or between several AVR devices.*
 
 *Features*
-* *Full-duplex, Three-wire Synchronous Data Transfer*
-* *Master or Slave Operation*
-* *LSB First or MSB First Data Transfer*
+* *Full-duplex communication*
+* *Synchronous data transfer*
+* *Master / slave operation*
 
 *The interconnection between Master and Slave CPUs with SPI. The system consists of two shift Registers, and a Master clock generator. The SPI Master initiates the communication cycle when pulling low the Slave Select SS pin of the desired Slave. Master and Slave prepare the data to be sent in their respective shift Registers, and the Master generates the required clock pulses on the SCK line to interchange data. Data is always shifted from Master to Slave on the Master Out – Slave In, MOSI, line, and from Slave to Master on the Master In – Slave Out, MISO, line. After each data packet, the Master will synchronize the Slave by pulling high the Slave Select, SS, line.*
 
@@ -46,8 +47,8 @@ SPI Demonstration using ATmega328P
 ```C
 // for Master
 
-// Set MOSI and SCK output, all others input
-DDR_SPI = (1 << DD_MOSI) | (1 << DD_SCK);
+// Set SCK, MOSI and SS output, all others input
+DDR_SPI = ((1 << DD_SCK) | (1 << DD_MOSI) | (1 << SS));
 ```
 
 ```C
@@ -64,7 +65,7 @@ DDR_SPI = (1 << DD_MISO);
 // for Master
 
 // Enable SPI, Master, set clock rate fck/16
-SPCR = (1 << SPE) | (1 << MSTR) | (1 << SPR0);
+SPCR = ((1 << SPE) | (1 << MSTR) | (1 << SPR0));
 ```
 
 ```C
@@ -76,9 +77,9 @@ SPCR = (1 << SPE);
 
 &nbsp;
 
-*Handle data*
+*Handle the data*
 ```C
-// for Master
+// for Master (Send the data)
 
 // Start transmission
 SPDR = cData;
@@ -87,7 +88,7 @@ while(!(SPSR & (1 << SPIF)));
 ```
 
 ```C
-// for Slave
+// for Slave (Receive the data)
 
 // Wait for reception complete
 while(!(SPSR & (1 << SPIF)));
