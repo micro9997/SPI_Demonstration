@@ -62,7 +62,7 @@ DDR_SPI = (1 << DD_MISO);
 
 &nbsp;
 
-*Peripheral enable*
+*Enable the SPI peripheral*
 ```C
 // for Master
 
