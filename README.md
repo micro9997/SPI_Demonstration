@@ -48,29 +48,30 @@ SPI Demonstration using ATmega328P
 // for Master
 
 // Set SCK, MOSI and SS output, all others input
-DDR_SPI = ((1 << DD_SCK) | (1 << DD_MOSI) | (1 << SS));
+DDRB |= ((1 << PORTB5) | (1 << PORTB3) | (1 << PORTB2));
 // SS to high
 PORTB |= (1 << PORTB2);
 ```
-
 ```C
+
 // for Slave
 
 // Set MISO output, all others input
-DDR_SPI = (1 << DD_MISO);
+DDRB |= (1 << PORTB4);
 ```
 
 &nbsp;
 
 *Enable the SPI peripheral*
 ```C
+
 // for Master
 
 // Enable SPI, Master, set clock rate fck/128
-SPCR = ((1 << SPE) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0));
+SPCR |= ((1 << SPE) | (1 << MSTR) | (1 << SPR1) | (1 << SPR0));
 ```
-
 ```C
+
 // for Slave
 
 // Enable SPI interrupt and SPI
@@ -90,7 +91,6 @@ SPDR = cData;
 // Wait for transmission complete
 while(!(SPSR & (1 << SPIF)));
 ```
-
 ```C
 // for Slave (Receive the data) with polling 
 
@@ -99,7 +99,6 @@ while(!(SPSR & (1 << SPIF)));
 // Return Data Register
 return SPDR;
 ```
-
 ```C
 // for Slave (Receive the data) with interrupt
 
@@ -129,7 +128,7 @@ Advantages
 Disadvantages
 * Require more physical connections for this communication.
 * It doesn't support multi-master communication.
-* More GPIOs are needed for communicating with more slaves.
+* More GPIOs are needed to communicate with more slaves.
 
 &nbsp;
 
